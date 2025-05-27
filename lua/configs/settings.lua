@@ -28,7 +28,7 @@ vim.cmd([[ set cursorline ]])
 vim.cmd([[ syntax on ]])
 
 -- Configuração do esquema de cores
--- vim.cmd([[ colorscheme catppuccin-macchiato ]])
+vim.cmd([[ colorscheme carbonfox]])
 
 -- Configuração de atalhos
 vim.keymap.set("n", "<M-'>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })

@@ -7,6 +7,7 @@ return require('packer').startup(function()
   use {  "EdenEast/nightfox.nvim" }                  --> Tema de cores
   use {"lukas-reineke/indent-blankline.nvim"}       --> Linhas de identação
   use {'tpope/vim-surround' }                       --> Muda caracteres no contorno da palavra
+  use { 'andweeb/presence.nvim' }
   use {                                             --> Telescope
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
