@@ -1,81 +1,56 @@
-require'nvim-web-devicons'.get_icons()
 
--- Definen a porsentagem da bateria
-local function get_battery()
-  -- Linux (sysfs)
-  local handle_linux = io.popen("cat /sys/class/power_supply/BAT*/capacity 2>/dev/null")
-  local percent_linux = handle_linux:read("*n") -- Lê como número (ex: 80)
-  handle_linux:close()
+require'nvim-web-devicons'.get_icons() --> Ícones érsonalizados
+require("ibl").setup()                 --> Linhas de identação
 
-  return percent_linux
-end
-
--- Para Barra de status
-require("lfs")
-
-local function dot_git_exists()
-  local path = "./.git"
-  if (lfs.attributes(path, "mode") == "directory") then
-    return true
-  end
-  return false
-end
-
-if dot_git_exists() then
-  branch = '-branch'
-else 
-  --branch = '-📁'
-  branch = '- '
-end
-
-local function get_var(my_var_name)
-  return vim.api.nvim_get_var(my_var_name)
-end
-
-extension = get_var("extension")
-
-if extension == "cpp" or extension == "hpp" or extension == "h" then
-  this_lsp = '-lsp_name'
-else
-  this_lsp = '-file_size'
-end
-
-require('staline').setup{
-  sections = {
-    left = {
-      ' ', 'right_sep_double', '-mode', 'left_sep_double', ' ',
-      'right_sep', '-file_name', 'left_sep', ' ',
-      'right_sep_double', branch, 'left_sep_double', ' ',
-    },
-    mid  = {' Bash', '-lsp'},
-    right= {
-      'right_sep_double', '-cool_symbol', 'left_sep_double', ' ',
-      -- 'right_sep', '- ', this_lsp, '- ', 'left_sep', ' ',
-      'right_sep_double', '-line_column', 'left_sep_double', ' ', 
+-- Barra de árvore
+require("nvim-navic").setup {
+    lsp = {
+        auto_attach = false
     }
-  },
-
-  defaults={
-    fg = "#f7f7f7",
-    cool_symbol = "", -- Exibe o ícone do sistema operacional
-    left_separator = "",
-    right_separator = "",
-    line_column = "%l:%c [%L]",
-    true_colors = false,
-    line_column = "[%l:%c] | 🔋" .. get_battery() .. '%%',
-    stab_start  = "",
-    stab_end    = ""
-  },
-  mode_colors = {
-    n  = "#5e81ac",
-    i  = "#006A6B",
-    ic = "#E4BF7B",
-    c  = "#2a6099",
-    v  = "#D71B39"
-  }
 }
 
+vim.o.winbar = [[%{expand('%:p:h:t')}/%t%m]] -- Mostra apenas o caminho do arquivo
 
--- PARA AS LINHAS DE INDENTAÇÃO
-require("ibl").setup()
 
+-- Barra de status
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'iceberg_dark',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    always_show_tabline = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 100,
+      tabline = 100,
+      winbar = 100,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
