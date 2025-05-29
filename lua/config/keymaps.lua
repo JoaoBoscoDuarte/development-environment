@@ -1,5 +1,8 @@
 local map = vim.keymap.set  -- Atalho para a função
 
+-- Abre a barra de árvore de arquivos
+map('n', '<A-\'>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
 -- ===== ATALHOS PRINCIPAIS ===== --
 -- Buscar arquivos (Telescope)
 map('n', '<leader>ff', '<cmd>Telescope find_files<CR>', { desc = '[F]ind [F]iles' })     -- [Leader + ff]

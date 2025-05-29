@@ -1,0 +1,3 @@
+- Instalação do vim
+- Criação do sistema de diretórios e arquivos
+- web dev icons: Plugin para icones maneiros

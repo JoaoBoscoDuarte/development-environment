@@ -1,12 +1,3 @@
--- :PackeCompiler toda vez que iniciar
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
-
-
 -- Configurações gerais
 vim.cmd([[ set encoding=utf8 ]])        -- Define a codificação
 vim.cmd([[ set number ]])              -- Ativa a exibição da quantidade de linhas
@@ -28,7 +19,7 @@ vim.cmd([[ set cursorline ]])
 vim.cmd([[ syntax on ]])
 
 -- Configuração do esquema de cores
-vim.cmd([[ colorscheme carbonfox]])
+--vim.cmd.colorscheme("onedark")
 
 -- Configuração de atalhos
 vim.keymap.set("n", "<M-'>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })

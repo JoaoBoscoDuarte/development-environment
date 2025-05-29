@@ -1,24 +1,9 @@
-
-require'nvim-web-devicons'.get_icons() --> Ícones érsonalizados
-require("ibl").setup()                 --> Linhas de identação
-
--- Barra de árvore
-require("nvim-navic").setup {
-    lsp = {
-        auto_attach = false
-    }
-}
-
-vim.o.winbar = [[%{expand('%:p:h:t')}/%t%m]] -- Mostra apenas o caminho do arquivo
-
-
--- Barra de status
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'iceberg_dark',
+    theme = 'onedark',
     component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
+    section_separators = { left = 'O', right = ''},
     disabled_filetypes = {
       statusline = {},
       winbar = {},
