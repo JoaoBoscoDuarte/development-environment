@@ -107,6 +107,16 @@ return {
     },
   },
 
+  -- bufferline.nvim 
+  {
+    'akinsho/bufferline.nvim', 
+    version = "*", 
+    config = function()
+      require("plugins.bufferline_setup")
+    end,
+  },
+  
+
   -- Autocomplete
   { 'neovim/nvim-lspconfig' },
   { 'hrsh7th/nvim-cmp' },

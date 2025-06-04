@@ -26,3 +26,5 @@ vim.keymap.set("n", "<M-'>", ":NvimTreeToggle<CR>", { noremap = true, silent = t
 
 -- Variável de função para a barra de status
 vim.cmd([[ let extension = expand('%:e') ]])
+
+vim.cmd([[set termguicolors]])
