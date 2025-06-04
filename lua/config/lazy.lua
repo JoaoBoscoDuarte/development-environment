@@ -22,11 +22,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Chama o arquivo com as configurações default do lunaline
 require('plugins.lualine')
 
--- Chama o LSP
-require('plugins.lsp')
-
--- Chama os cmp (autocomplete)
-require("plugins.cmp")
+-- Chama o lsp e cmp
+require("plugins.complete")
 
 -- Setup lazy.nvim
 require("lazy").setup({
