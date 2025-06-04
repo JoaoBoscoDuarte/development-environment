@@ -115,7 +115,14 @@ return {
       require("plugins.bufferline_setup")
     end,
   },
-  
+
+  -- Discord rich presence
+  { 
+    'andweeb/presence.nvim',
+    config = function ()
+      require("plugins.rich_discord")
+    end,
+  },
 
   -- Autocomplete
   { 'neovim/nvim-lspconfig' },

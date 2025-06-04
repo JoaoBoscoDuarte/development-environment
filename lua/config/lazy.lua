@@ -25,7 +25,6 @@ require('plugins.lualine')
 -- Chama o lsp e cmp
 require("plugins.complete")
 
--- Setup lazy.nvim
 require("lazy").setup({
   spec = {
     --> IMPORTAR PLUGINS:
