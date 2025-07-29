@@ -1,15 +1,20 @@
 return {
+  -- Icones
   { "nvim-tree/nvim-web-devicons", opts = {} },      --> Biblioteca de ícones maneiros
   
+  -- Ecossistema para o nvim
   { "nvim-lua/plenary.nvim", lazy = true },          --> Plenary bibi usada para outros plugins
   
+  -- Análise incremental do codigo
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
   },
 
+  -- Gerenciamento de configurações do nvim
   { 'nvim-telescope/telescope.nvim', tag = '0.1.8', },
 
+  -- Barra de arvore de arquivos e diretórios 
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -22,6 +27,7 @@ return {
     end,
   },
 
+  -- Linhas de identação em blocos de codigo 
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
@@ -30,11 +36,13 @@ return {
     opts = {},
   },
 
+  -- Linha de status 
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
 
+  -- Construção de atalhos
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -54,6 +62,7 @@ return {
     },
   },
 
+  -- Manipulação de pairs 
   {
     "kylechui/nvim-surround",
     version = "^3.0.0", -- Use for stability; omit to use `main` branch for the latest features
@@ -65,6 +74,7 @@ return {
     end
   },
 
+  -- Alto insert de parenteses, chaves ou colchetes
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
@@ -73,6 +83,7 @@ return {
     -- this is equivalent to setup({}) function
   },
 
+  -- Tema ondedark para nvim
   {
     "navarasu/onedark.nvim",
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -85,6 +96,7 @@ return {
     end
   },
 
+  -- Mason
   {
     "williamboman/mason.nvim",
     opts = {
@@ -97,7 +109,8 @@ return {
         },
     },
   },
-
+  
+  -- Mason para gerenciamento de LSP's
   {
     "mason-org/mason-lspconfig.nvim",
     opts = {},
@@ -116,13 +129,14 @@ return {
     end,
   },
 
-  -- Discord rich presence
-  { 
-    'andweeb/presence.nvim',
-    config = function ()
-      require("plugins.rich_discord")
-    end,
+  -- Vizualização de arquivos markdow
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   },
+
 
   -- Autocomplete
   { 'neovim/nvim-lspconfig' },
