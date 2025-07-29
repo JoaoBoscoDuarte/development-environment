@@ -18,13 +18,6 @@ vim.cmd([[ set guicursor= ]])
 vim.cmd([[ set cursorline ]])
 vim.cmd([[ syntax on ]])
 
--- Configuração do esquema de cores
---vim.cmd.colorscheme("onedark")
-
--- Configuração de atalhos
-vim.keymap.set("n", "<M-'>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-
 -- Variável de função para a barra de status
 vim.cmd([[ let extension = expand('%:e') ]])
-
 vim.cmd([[set termguicolors]])
