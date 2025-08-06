@@ -3,12 +3,14 @@ return {
   { "nvim-tree/nvim-web-devicons", opts = {} },      --> Biblioteca de ícones maneiros
   
   -- Ecossistema para o nvim
-  { "nvim-lua/plenary.nvim", lazy = true },          --> Plenary bibi usada para outros plugins
-  
-  -- Análise incremental do codigo
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"  -- já garante o carregamento
+    },
+    config = function()
+      require("telescope").setup()
+    end,
   },
 
   -- Gerenciamento de configurações do nvim

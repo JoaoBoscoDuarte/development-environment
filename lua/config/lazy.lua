@@ -21,13 +21,29 @@ require('plugins.lualine')
 -- Chama o lsp e cmp                                  <---- Também deve ser movido para o aqruivo de plugins
 require("plugins.complete")
 
-
--- Importação dos plugins
 require("lazy").setup({
   spec = {
-    --> IMPORTAR PLUGINS:
+    --> IMPORTAR OUTROS PLUGINS:
     { import = "plugins.plugins" },
+
+    --> Treesitter diretamente aqui:
+    {
+      "nvim-treesitter/nvim-treesitter",
+      build = ":TSUpdate",
+      lazy = false,
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          highlight = {
+            enable = true,
+          },
+          indent = {
+            enable = true,
+          },
+        })
+      end,
+    },
   },
 
+  -- Habilita verificação automática de updates
   checker = { enabled = true },
 })
