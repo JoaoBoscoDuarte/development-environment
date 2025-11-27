@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Script de sincronização de configurações de desenvolvimento
-# Sincroniza arquivos de configuração do Neovim, Alacritty e VSCode com o repositório Git
+# Script de sincronização de configurações do Neovim
+# Sincroniza arquivos de configuração do Neovim local com o repositório Git
 
 # Interrompe execução em caso de erro
 set -e
@@ -13,17 +13,11 @@ set -e
 # Diretório do repositório de desenvolvimento
 REPO=~/prog/development-environment
 
-# Configurações do Neovim
+# Diretório fonte das configurações do Neovim
 NVIM_SRC=~/.config/nvim
+
+# Diretório destino no repositório
 NVIM_DST=$REPO/nvim
-
-# Configurações do Alacritty
-ALACRITTY_SRC=~/.config/alacritty
-ALACRITTY_DST=$REPO/alacritty
-
-# Configurações do VSCode
-VSCODE_SRC=~/.config/Code/User
-VSCODE_DST=$REPO/vscode
 
 # ============================================================================
 # FUNÇÕES AUXILIARES
@@ -42,57 +36,29 @@ log_error() {
     echo "[$(date '+%H:%M:%S')] ERROR: $1" >&2
 }
 
-# Função para sincronizar configurações
-sync_config() {
-    local name="$1"
-    local src="$2"
-    local dst="$3"
-    shift 3
-    local excludes=("$@")
-    
-    log_info "Sincronizando configurações do $name"
-    
-    if [ ! -d "$src" ]; then
-        log_warning "Diretório de configuração do $name não encontrado: $src"
-        return 0
-    fi
-    
-    mkdir -p "$dst"
-    
-    local rsync_cmd="rsync -av --delete"
-    for exclude in "${excludes[@]}"; do
-        rsync_cmd+=" --exclude='$exclude'"
-    done
-    rsync_cmd+=" '$src/' '$dst/'"
-    
-    log_info "Copiando arquivos de configuração do $name"
-    eval "$rsync_cmd"
-    log_info "Configurações do $name sincronizadas"
-}
-
 # ============================================================================
 # SINCRONIZAÇÃO
 # ============================================================================
 
-log_info "Iniciando sincronização das configurações de desenvolvimento"
+log_info "Iniciando sincronização das configurações do Neovim"
 
-# Sincroniza Neovim
-sync_config "Neovim" "$NVIM_SRC" "$NVIM_DST" \
-    ".git/" \
-    "lazy-lock.json"
+# Verifica se o diretório fonte existe
+if [ ! -d "$NVIM_SRC" ]; then
+    log_error "Diretório de configuração do Neovim não encontrado: $NVIM_SRC"
+    exit 1
+fi
 
-# Sincroniza Alacritty
-sync_config "Alacritty" "$ALACRITTY_SRC" "$ALACRITTY_DST" \
-    ".git/"
+# Cria diretório destino se não existir
+mkdir -p "$NVIM_DST"
 
-# Sincroniza VSCode
-sync_config "VSCode" "$VSCODE_SRC" "$VSCODE_DST" \
-    ".git/" \
-    "workspaceStorage/" \
-    "logs/" \
-    "CachedExtensions/" \
-    "User/globalStorage/" \
-    "User/workspaceStorage/"
+# Sincroniza arquivos usando rsync
+log_info "Copiando arquivos de configuração"
+rsync -av --delete \
+  --exclude='.git/' \
+  --exclude='lazy-lock.json' \
+  "$NVIM_SRC/" "$NVIM_DST/"
+
+log_info "Arquivos sincronizados com sucesso"
 
 # ============================================================================
 # CONTROLE DE VERSÃO
@@ -106,7 +72,7 @@ log_info "Adicionando mudanças ao controle de versão"
 git add .
 
 # Cria commit com timestamp
-COMMIT_MSG="update: sincroniza todas as configs $(date '+%Y-%m-%d %H:%M:%S')"
+COMMIT_MSG="update: sincroniza configs Neovim $(date '+%Y-%m-%d %H:%M:%S')"
 if git commit -m "$COMMIT_MSG"; then
     log_info "Commit criado: $COMMIT_MSG"
 else
@@ -121,4 +87,3 @@ else
     log_error "Falha ao enviar mudanças para o repositório remoto"
     exit 1
 fi
-
