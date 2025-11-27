@@ -11,5 +11,4 @@ style = "Bold"
 
 [font.italic]
 family = "FiraMono Nerd Font"
-style = "Regular"  # não há italic disponível nos seus arquivos
-
+style = "Regular"
