@@ -1,10 +1,19 @@
--- Importa as configurações do nvim  
+-- =====================================================
+-- CONFIGURAÇÃO PRINCIPAL DO NEOVIM
+-- =====================================================
+
+-- Configuração das teclas leader (deve ser definida antes de tudo)
+vim.g.mapleader = " "        -- Espaço como tecla leader principal
+vim.g.maplocalleader = " "   -- Espaço como tecla leader local
+
+-- Carrega configurações básicas do editor
 require("config.settings")
 
--- Configuração básica do leader
-vim.g.mapleader = " "  -- Define Espaço como tecla leader
-vim.g.maplocalleader = " "  -- Opcional: leader para arquivos específicos
+-- Carrega atalhos de teclado personalizados
 require("config.keymaps")
 
--- Configurações Lazy
-require('config.lazy')
+-- Carrega comandos automáticos
+require("config.autocmds")
+
+-- Inicializa o gerenciador de plugins Lazy.nvim
+require("config.lazy")
