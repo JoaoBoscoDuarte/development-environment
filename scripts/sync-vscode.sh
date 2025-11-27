@@ -51,16 +51,14 @@ fi
 # Cria diretório destino se não existir
 mkdir -p "$VSCODE_DST"
 
-# Sincroniza arquivos usando rsync
-# Exclui diretórios de cache e dados temporários
+# Sincroniza apenas arquivos de configuração essenciais
 log_info "Copiando arquivos de configuração"
-rsync -av --delete \
-  --exclude='.git/' \
-  --exclude='workspaceStorage/' \
-  --exclude='logs/' \
-  --exclude='CachedExtensions/' \
-  --exclude='globalStorage/' \
-  --exclude='workspaceStorage/' \
+rsync -av \
+  --include='settings.json' \
+  --include='keybindings.json' \
+  --include='snippets/' \
+  --include='snippets/**' \
+  --exclude='*' \
   "$VSCODE_SRC/" "$VSCODE_DST/"
 
 log_info "Arquivos sincronizados com sucesso"
