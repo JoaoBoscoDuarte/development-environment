@@ -20,7 +20,8 @@ APT_PACKAGES=(
     gzip
     scdoc
     flatpak
-    gnome-software-plugin-flatpak
+    gnome-software-plugin-flatpaksudo 
+    steam-devices
 )
 
 log_info "Atualizando pacotes do sistema"
