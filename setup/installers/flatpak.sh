@@ -17,7 +17,9 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 log_info "Instalando aplicativos Flatpak"
 for app in "${FLATPAK_APPS[@]}"; do
     log_info "Instalando $app"
-    flatpak install -y flathub "$app"
+    if ! flatpak install -y flathub "$app"; then
+        FAILED_STEPS+=("flatpak: $app")
+    fi
 done
 
 grep -qxF "alias code='flatpak run com.visualstudio.code'" ~/.bashrc \
